@@ -3,6 +3,7 @@ package com.romoura.forum.service
 import com.romoura.forum.dto.TopicoInput
 import com.romoura.forum.dto.TopicoOutput
 import com.romoura.forum.dto.TopicoUpdateInput
+import com.romoura.forum.exceptions.ForumNotFoundException
 import com.romoura.forum.mapper.TopicoInputMapper
 import com.romoura.forum.mapper.TopicoOutputMapper
 import com.romoura.forum.model.Topico
@@ -27,7 +28,7 @@ class TopicoService(
             .stream()
             .filter { t -> t.id == id }
             .findFirst()
-            .get()
+            .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
 
         return outputMapper.map(t)
     }
@@ -45,7 +46,7 @@ class TopicoService(
             .stream()
             .filter { t -> t.id == id }
             .findFirst()
-            .get()
+            .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
         val topicoAtualizado = Topico(
             id = id,
             titulo = input.titulo,
@@ -65,7 +66,7 @@ class TopicoService(
             .stream()
             .filter { t -> t.id == id }
             .findFirst()
-            .get()
+            .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
         topicos = topicos.minus(topico)
     }
 
