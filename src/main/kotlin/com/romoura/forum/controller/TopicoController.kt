@@ -4,6 +4,7 @@ import com.romoura.forum.dto.TopicoInput
 import com.romoura.forum.dto.TopicoOutput
 import com.romoura.forum.dto.TopicoUpdateInput
 import com.romoura.forum.service.TopicoService
+import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -28,18 +29,21 @@ class TopicoController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     fun cadastrar(@RequestBody @Valid input: TopicoInput): TopicoOutput {
         return service.cadastrar(input)
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Transactional
     fun atualizar(@PathVariable id: Long, @RequestBody @Valid input: TopicoUpdateInput): TopicoOutput {
         return service.atualizar(id, input)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     fun deletar(@PathVariable id: Long){
         return service.deletar(id)
     }

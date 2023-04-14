@@ -1,27 +1,16 @@
 package com.romoura.forum.service
 
 import com.romoura.forum.model.Curso
+import com.romoura.forum.repository.CursoRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CursoService(
-    var cusros: List<Curso>
+    private val repository: CursoRepository
 ) {
 
-    init {
-        val curso = Curso(
-            id = 1,
-            nome = "Kotlin",
-            categoria = "Programação"
-        )
-
-        cusros = listOf(curso)
-    }
-
     fun buscarPorId(id: Long): Curso {
-        return cusros.stream()
-            .filter { c -> c.id == id }
-            .findFirst().get()
+        return repository.getReferenceById(id)
     }
 
 }

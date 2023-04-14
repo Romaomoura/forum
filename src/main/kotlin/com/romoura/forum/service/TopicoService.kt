@@ -7,67 +7,57 @@ import com.romoura.forum.exceptions.ForumNotFoundException
 import com.romoura.forum.mapper.TopicoInputMapper
 import com.romoura.forum.mapper.TopicoOutputMapper
 import com.romoura.forum.model.Topico
+import com.romoura.forum.repository.TopicoRepository
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 
 @Service
 class TopicoService(
-    private var topicos: List<Topico> = ArrayList(),
+    private val repository: TopicoRepository,
     private val outputMapper: TopicoOutputMapper,
     private val inputMapper: TopicoInputMapper
 ) {
 
     fun listar(): List<TopicoOutput> {
-        return topicos.stream().map { t ->
+        return repository.findAll().stream().map { t ->
             outputMapper.map(t)
         }.collect(Collectors.toList())
     }
 
     fun buscarPorId(id: Long): TopicoOutput {
-        val t = topicos
-            .stream()
-            .filter { t -> t.id == id }
-            .findFirst()
+        val t = repository.findById(id)
             .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
 
         return outputMapper.map(t)
     }
 
     fun cadastrar(t: TopicoInput): TopicoOutput {
+
         val topico = inputMapper.map(t)
-        topico.id = topicos.size.toLong() + 1
-        topicos = topicos.plus(topico)
+        repository.save(topico)
 
         return outputMapper.map(topico)
     }
 
     fun atualizar(id: Long, input: TopicoUpdateInput):TopicoOutput {
-        val topico = topicos
-            .stream()
-            .filter { t -> t.id == id }
-            .findFirst()
+
+        val topico = repository.findById(id)
             .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
-        val topicoAtualizado = Topico(
-            id = id,
+
+        topico.copy(
             titulo = input.titulo,
             mensagem = input.mensagem,
-            autor = topico.autor,
-            curso = topico.curso,
-            respostas = topico.respostas,
-            status = topico.status,
-            criadoEm = topico.criadoEm,
         )
-        topicos = topicos.minus(topico).plus(topicoAtualizado)
-        return outputMapper.map(topicoAtualizado)
+
+        repository.save(topico)
+
+        return outputMapper.map(topico)
     }
 
     fun deletar(id: Long) {
-        val topico = topicos
-            .stream()
-            .filter { t -> t.id == id }
-            .findFirst()
+        val topico = repository.findById(id)
             .orElseThrow{ForumNotFoundException("Topico de id: ${id} não encontrado.")}
-        topicos = topicos.minus(topico)
+        repository.delete(topico)
     }
 
 }

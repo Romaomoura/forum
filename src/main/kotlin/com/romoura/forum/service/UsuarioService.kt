@@ -1,28 +1,16 @@
 package com.romoura.forum.service
 
 import com.romoura.forum.model.Usuario
+import com.romoura.forum.repository.UsuarioRepository
 import org.springframework.stereotype.Service
 
 @Service
 class UsuarioService(
-    private var usuarios: List<Usuario>
+    private val repository: UsuarioRepository
 ) {
-    init {
-        val usuario = Usuario(
-            id = 1,
-            nome = "Romão",
-            email = "romao@gmail.com"
-        )
-
-        usuarios = listOf(usuario)
-    }
 
     fun buscarPorId(id: Long): Usuario {
-        return usuarios
-            .stream()
-            .filter { u -> u.id == id }
-            .findFirst()
-            .get()
+        return repository.getReferenceById(id)
     }
 
 }
