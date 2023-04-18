@@ -1,4 +1,4 @@
-package com.romoura.forum.model.enums
+package com.romoura.forum.domain.enums
 
 enum class StatusTopico {
 

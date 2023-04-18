@@ -1,7 +1,7 @@
 package com.romoura.forum.mapper
 
 import com.romoura.forum.dto.TopicoOutput
-import com.romoura.forum.model.Topico
+import com.romoura.forum.domain.Topico
 import org.springframework.stereotype.Component
 
 @Component

@@ -1,6 +1,6 @@
 package com.romoura.forum.service
 
-import com.romoura.forum.model.Usuario
+import com.romoura.forum.domain.Usuario
 import com.romoura.forum.repository.UsuarioRepository
 import org.springframework.stereotype.Service
 

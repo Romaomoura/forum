@@ -1,6 +1,6 @@
 package com.romoura.forum.dto
 
-import com.romoura.forum.model.enums.StatusTopico
+import com.romoura.forum.domain.enums.StatusTopico
 import java.time.LocalDateTime
 
 data class TopicoOutput(
