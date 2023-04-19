@@ -2,6 +2,7 @@ package com.romoura.forum.service
 
 import com.romoura.forum.dto.TopicoInput
 import com.romoura.forum.dto.TopicoOutput
+import com.romoura.forum.dto.TopicoPorCategoriaOutput
 import com.romoura.forum.dto.TopicoUpdateInput
 import com.romoura.forum.exceptions.ForumNotFoundException
 import com.romoura.forum.mapper.TopicoInputMapper
@@ -67,6 +68,10 @@ class TopicoService(
             .orElseThrow { ForumNotFoundException("Topico de id: ${id} não encontrado.") }
 
         repository.deleteById(id)
+    }
+
+    fun relatorio(): List<TopicoPorCategoriaOutput> {
+        return repository.relatorio()
     }
 
 }

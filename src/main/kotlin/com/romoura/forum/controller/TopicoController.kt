@@ -2,10 +2,14 @@ package com.romoura.forum.controller
 
 import com.romoura.forum.dto.TopicoInput
 import com.romoura.forum.dto.TopicoOutput
+import com.romoura.forum.dto.TopicoPorCategoriaOutput
 import com.romoura.forum.dto.TopicoUpdateInput
 import com.romoura.forum.service.TopicoService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import lombok.Getter
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -20,6 +24,7 @@ class TopicoController(
 ) {
 
     @GetMapping
+    @Cacheable("topicos")// Apenas para fins didáticos, em produção essa forma é inviável
     @ResponseStatus(HttpStatus.OK)
     fun listar(
         @RequestParam(required = false) nomeCurso: String?,
@@ -29,12 +34,14 @@ class TopicoController(
     }
 
     @GetMapping("/{id}")
+    @Cacheable("topico")
     @ResponseStatus(HttpStatus.OK)
     fun buscarPorId(@PathVariable id: Long): TopicoOutput {
         return service.buscarPorId(id)
     }
 
     @PostMapping
+    @CacheEvict(value = ["topicos", "topico"], allEntries = true) // Limpando cache
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
     fun cadastrar(@RequestBody @Valid input: TopicoInput): TopicoOutput {
@@ -42,6 +49,7 @@ class TopicoController(
     }
 
     @PutMapping("/{id}")
+    @CacheEvict(value = ["topicos", "topico"], allEntries = true)
     @ResponseStatus(HttpStatus.OK)
     @Transactional
     fun atualizar(@PathVariable id: Long, @RequestBody @Valid input: TopicoUpdateInput): TopicoOutput {
@@ -49,11 +57,16 @@ class TopicoController(
     }
 
     @DeleteMapping("/{id}")
+    @CacheEvict(value = ["topicos", "topico"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     fun deletar(@PathVariable id: Long) {
         return service.deletar(id)
     }
 
+    @GetMapping("/relatorio")
+    fun relatorio() : List<TopicoPorCategoriaOutput>{
+        return service.relatorio()
+    }
 
 }
