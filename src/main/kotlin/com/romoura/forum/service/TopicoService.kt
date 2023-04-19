@@ -7,8 +7,9 @@ import com.romoura.forum.exceptions.ForumNotFoundException
 import com.romoura.forum.mapper.TopicoInputMapper
 import com.romoura.forum.mapper.TopicoOutputMapper
 import com.romoura.forum.repository.TopicoRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
 class TopicoService(
@@ -17,10 +18,20 @@ class TopicoService(
     private val inputMapper: TopicoInputMapper
 ) {
 
-    fun listar(): List<TopicoOutput> {
-        return repository.findAll().stream().map { t ->
+    fun listar(
+        nomeCurso: String?,
+        p: Pageable
+    ): Page<TopicoOutput> {
+
+        val topicos = if (nomeCurso == null) {
+            repository.findAll(p)
+        } else {
+            repository.findByCursoNome(nomeCurso, p)
+        }
+        return topicos.map { t ->
             outputMapper.map(t)
-        }.collect(Collectors.toList())
+        }
+
     }
 
     fun buscarPorId(id: Long): TopicoOutput {
