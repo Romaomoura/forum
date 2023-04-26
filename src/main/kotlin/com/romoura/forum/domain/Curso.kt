@@ -1,7 +1,7 @@
 package com.romoura.forum.domain
 
-import jakarta.persistence.*
 import org.hibernate.Hibernate
+import javax.persistence.*
 
 
 @Entity(name = "curso")

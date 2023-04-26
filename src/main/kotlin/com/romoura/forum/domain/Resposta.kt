@@ -1,8 +1,8 @@
 package com.romoura.forum.domain
 
-import jakarta.persistence.*
 import org.hibernate.Hibernate
 import java.time.LocalDateTime
+import javax.persistence.*
 
 @Entity
 data class Resposta(

@@ -1,9 +1,9 @@
 package com.romoura.forum.domain
 
 import com.romoura.forum.domain.enums.StatusTopico
-import jakarta.persistence.*
 import org.hibernate.Hibernate
 import java.time.LocalDateTime
+import javax.persistence.*
 
 @Entity(name = "topico")
 data class Topico(

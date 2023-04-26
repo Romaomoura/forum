@@ -5,9 +5,6 @@ import com.romoura.forum.dto.TopicoOutput
 import com.romoura.forum.dto.TopicoPorCategoriaOutput
 import com.romoura.forum.dto.TopicoUpdateInput
 import com.romoura.forum.service.TopicoService
-import jakarta.transaction.Transactional
-import jakarta.validation.Valid
-import lombok.Getter
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -16,6 +13,8 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.transaction.Transactional
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/topicos")
@@ -65,7 +64,7 @@ class TopicoController(
     }
 
     @GetMapping("/relatorio")
-    fun relatorio() : List<TopicoPorCategoriaOutput>{
+    fun relatorio(): List<TopicoPorCategoriaOutput> {
         return service.relatorio()
     }
 

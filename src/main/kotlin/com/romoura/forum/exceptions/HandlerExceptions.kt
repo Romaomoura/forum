@@ -1,12 +1,12 @@
 package com.romoura.forum.exceptions
 
 import com.romoura.forum.dto.ErrorOutput
-import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import javax.servlet.http.HttpServletRequest
 
 @RestControllerAdvice
 class HandlerExceptions {
@@ -45,10 +45,10 @@ class HandlerExceptions {
         exception: MethodArgumentNotValidException,
         request: HttpServletRequest
     ): ErrorOutput {
-        val errorMessage =  HashMap<String, String?>()
+        val errorMessage = HashMap<String, String?>()
 
-        exception.bindingResult.fieldErrors.forEach{
-            e -> errorMessage.put(e.field, e.defaultMessage)
+        exception.bindingResult.fieldErrors.forEach { e ->
+            errorMessage.put(e.field, e.defaultMessage)
         }
 
         return ErrorOutput(

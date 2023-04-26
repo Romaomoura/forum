@@ -10,7 +10,7 @@ class CursoService(
 ) {
 
     fun buscarPorId(id: Long): Curso {
-        return repository.getReferenceById(id)
+        return repository.getOne(id)
     }
 
 }
