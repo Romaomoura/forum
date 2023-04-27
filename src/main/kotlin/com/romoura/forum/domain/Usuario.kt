@@ -12,9 +12,9 @@ data class Usuario(
     @Column(name = "id", nullable = false)
     val id: Long? = null,
 
-    val nome: String? = "",
-    val email: String = "",
-    val senha: String? = "",
+    val nome: String?,
+    val email: String,
+    val senha: String?,
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
