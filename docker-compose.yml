@@ -15,7 +15,9 @@ services:
       - ./pg-data/pg:/var/lib/postgresql/data
 
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - postgressql
     ports:
