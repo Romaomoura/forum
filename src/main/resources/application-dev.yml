@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://pg-forum-dev:5432/dbForum
+    username: moura
+    password: u$Romao83
+    testOnBorrow: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: update
+
+jwt:
+  secret: viverédesenharsemborracha
+

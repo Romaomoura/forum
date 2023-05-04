@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgressql:
+    image: postgres
+    restart: always
+    container_name: pg-forum-dev
+    environment:
+      POSTGRES_PASSWORD: u$Romao83
+      POSTGRES_USER: moura
+      POSTGRES_DB: dbForum
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg-data/pg:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      - postgressql
+    ports:
+      - "8080:8080"
