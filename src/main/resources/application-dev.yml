@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://pg-forum-dev:5432/dbForum
     username: moura
-    password: u$Romao83
+    password: u$Romao83!
     testOnBorrow: true
 
   jpa:

@@ -1,6 +1,6 @@
 FROM amazoncorretto:17.0.5-alpine
+WORKDIR /opt/app
 EXPOSE 8080
-COPY target/forum-0.0.1-SNAPSHOT.jar /opt/app/
-WORKDIR /opt/app/
+COPY target/forum-0.0.1-SNAPSHOT.jar /opt/app
 ADD target/forum-0.0.1-SNAPSHOT.jar forum.jar
 ENTRYPOINT ["java", "-jar", "forum.jar"]

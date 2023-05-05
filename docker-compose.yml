@@ -6,13 +6,21 @@ services:
     restart: always
     container_name: pg-forum-dev
     environment:
-      POSTGRES_PASSWORD: u$Romao83
+      POSTGRES_PASSWORD: u$Romao83!
       POSTGRES_USER: moura
       POSTGRES_DB: dbForum
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
       - ./pg-data/pg:/var/lib/postgresql/data
+    user: "postgres"
+    networks:
+      - app-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U moura -d dbForum -h localhost -p 5432" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build:
@@ -22,3 +30,12 @@ services:
       - postgressql
     ports:
       - "8080:8080"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  db-data:
