@@ -4,9 +4,9 @@ services:
   postgressql:
     image: postgres:14.0-alpine
     restart: always
-    container_name: pg-forum-dev
+    container_name: pg-forum
     environment:
-      POSTGRES_PASSWORD: u$Romao83!
+      POSTGRES_PASSWORD: forum1807
       POSTGRES_USER: moura
       POSTGRES_DB: dbForum
     ports:
@@ -35,5 +35,5 @@ networks:
   app-net:
     driver: bridge
 
-volumes:
-  db-data:
+#volumes:
+#  db-data:
