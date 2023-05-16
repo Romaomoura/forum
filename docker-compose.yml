@@ -1,39 +1,43 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  postgressql:
+  db:
     image: postgres:14.0-alpine
-    restart: always
     container_name: pg-forum
+    networks:
+      - app-net
     environment:
-      POSTGRES_PASSWORD: forum1807
-      POSTGRES_USER: moura
-      POSTGRES_DB: dbForum
+      - POSTGRES_PASSWORD=1807
+      - POSTGRES_USER=moura
+      - POSTGRES_DB=dbForum
+      - POSTGRES_HOST_AUTH_METHOD=md5
     ports:
       - "5434:5432"
     volumes:
-      - ./pg-data/pg:/var/lib/postgresql/data
-    networks:
-      - app-net
-#    healthcheck:
-#      test: [ "CMD-SHELL", "pg_isready -U moura -d dbForum -h localhost -p 5432" ]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
+      - ./pg-data/pgforum:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "moura", "-d", "dbForum", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - postgressql
-    ports:
-      - "8080:8080"
     networks:
       - app-net
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 networks:
   app-net:
     driver: bridge
-
-#volumes:
-#  db-data:

@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://pg-forum:5432/dbForum
-    username: moura
-    password: forum1807
+    username: "moura"
+    password: 1807
     testOnBorrow: true
 
   jpa:
