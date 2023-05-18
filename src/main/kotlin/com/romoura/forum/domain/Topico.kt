@@ -18,7 +18,7 @@ data class Topico(
     val criadoEm: LocalDateTime = LocalDateTime.now(),
 
     @ManyToOne
-    val curso: Curso? = null,
+    val aplicacao: Aplicacao? = null,
 
     @ManyToOne
     val autor: Usuario? = null,
@@ -27,7 +27,9 @@ data class Topico(
     val status: StatusTopico = StatusTopico.NAO_RESPONDIDO,
 
     @OneToMany(mappedBy = "topico")
-    val respostas: List<Resposta> = ArrayList()
+    val respostas: List<Resposta> = ArrayList(),
+
+    var dataAlteracao: LocalDateTime? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -41,6 +43,6 @@ data class Topico(
 
     @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id , titulo = $titulo , mensagem = $mensagem , criadoEm = $criadoEm , curso = $curso , autor = $autor , status = $status )"
+        return this::class.simpleName + "(id = $id , titulo = $titulo , mensagem = $mensagem , criadoEm = $criadoEm , aplicacao = $aplicacao , autor = $autor , status = $status )"
     }
 }

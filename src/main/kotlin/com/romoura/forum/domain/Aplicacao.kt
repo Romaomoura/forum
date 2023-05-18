@@ -4,8 +4,8 @@ import org.hibernate.Hibernate
 import javax.persistence.*
 
 
-@Entity(name = "curso")
-data class Curso(
+@Entity(name = "aplicacao")
+data class Aplicacao(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ data class Curso(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Curso
+        other as Aplicacao
 
         return id != null && id == other.id
     }

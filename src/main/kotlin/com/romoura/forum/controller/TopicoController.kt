@@ -23,17 +23,17 @@ class TopicoController(
 ) {
 
     @GetMapping
-    @Cacheable("topicos")// Apenas para fins didáticos, em produção essa forma é inviável
+    //@Cacheable("topicos")// Apenas para fins didáticos, em produção essa forma é inviável
     @ResponseStatus(HttpStatus.OK)
     fun listar(
-        @RequestParam(required = false) nomeCurso: String?,
+        @RequestParam(required = false) nomeAplicacao: String?,
         @PageableDefault(size = 5, sort = ["criadoEm", "titulo"], direction = Sort.Direction.DESC) p: Pageable
     ): Page<TopicoOutput> {
-        return service.listar(nomeCurso, p)
+        return service.listar(nomeAplicacao, p)
     }
 
     @GetMapping("/{id}")
-    @Cacheable("topico")
+    //@Cacheable("topico")
     @ResponseStatus(HttpStatus.OK)
     fun buscarPorId(@PathVariable id: Long): TopicoOutput {
         return service.buscarPorId(id)

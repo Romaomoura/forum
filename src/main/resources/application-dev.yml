@@ -1,7 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://pg-forum:5432/dbForum
+    #url: jdbc:postgresql://pg-forum:5432/dbForum #container: api - container: banco de dados
+    url: jdbc:postgresql://localhost:5434/dbForum #local: api - container: banco de dados
     username: "moura"
     password: 1807
     testOnBorrow: true

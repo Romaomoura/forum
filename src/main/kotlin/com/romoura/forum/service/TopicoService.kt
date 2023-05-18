@@ -11,6 +11,7 @@ import com.romoura.forum.repository.TopicoRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class TopicoService(
@@ -20,14 +21,14 @@ class TopicoService(
 ) {
 
     fun listar(
-        nomeCurso: String?,
+        nomeAplicacao: String?,
         p: Pageable
     ): Page<TopicoOutput> {
 
-        val topicos = if (nomeCurso == null) {
+        val topicos = if (nomeAplicacao == null) {
             repository.findAll(p)
         } else {
-            repository.findByCursoNome(nomeCurso, p)
+            repository.findByAplicacaoNome(nomeAplicacao, p)
         }
         return topicos.map { t ->
             outputMapper.map(t)
@@ -58,6 +59,7 @@ class TopicoService(
 
         topico.titulo = input.titulo
         topico.mensagem = input.mensagem
+        topico.dataAlteracao = LocalDateTime.now()
 
         return outputMapper.map(topico)
     }

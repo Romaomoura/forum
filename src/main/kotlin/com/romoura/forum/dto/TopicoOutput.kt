@@ -8,5 +8,6 @@ data class TopicoOutput(
     val titulo: String,
     val mensagem: String,
     val status: StatusTopico,
-    val criadoEm: LocalDateTime
+    val criadoEm: LocalDateTime,
+    val dataAlteracao: LocalDateTime? = null
 )

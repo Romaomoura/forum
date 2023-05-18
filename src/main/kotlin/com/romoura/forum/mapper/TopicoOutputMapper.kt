@@ -13,7 +13,8 @@ class TopicoOutputMapper: Mapper<Topico, TopicoOutput> {
             titulo = t.titulo,
             mensagem = t.mensagem,
             status = t.status,
-            criadoEm = t.criadoEm
+            criadoEm = t.criadoEm,
+            dataAlteracao = t.dataAlteracao
         )
     }
 
