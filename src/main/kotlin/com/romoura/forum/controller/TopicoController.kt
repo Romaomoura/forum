@@ -5,6 +5,7 @@ import com.romoura.forum.dto.TopicoOutput
 import com.romoura.forum.dto.TopicoPorCategoriaOutput
 import com.romoura.forum.dto.TopicoUpdateInput
 import com.romoura.forum.service.TopicoService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -17,6 +18,7 @@ import javax.transaction.Transactional
 import javax.validation.Valid
 
 @RestController
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/topicos")
 class TopicoController(
     private val service: TopicoService

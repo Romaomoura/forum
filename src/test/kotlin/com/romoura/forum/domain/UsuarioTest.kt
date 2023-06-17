@@ -8,4 +8,5 @@ object UsuarioTest {
         senha = "12345",
         role = mutableListOf()
     )
+    fun buildToToken() = Usuario(nome = "Romão", email = "romao@gmail.com", senha = "12345")
 }
